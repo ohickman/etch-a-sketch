@@ -5,8 +5,8 @@ Raspberry Pi powered Etch A Sketch
 
 * [Idea](#idea)
 * [Software](#software)
-  * [Running `draw.py`](#running-draw.py)
-  * [Running `manual.py`](#running-manual.py)
+  * [Running `draw.py`](#running-drawpy)
+  * [Running `manual.py`](#running-manualpy)
   * [Reading the Program](#reading-the-program)
   * [Extending the Program](#extending-the-program)
 * [Hardware](#hardware)
