@@ -116,17 +116,25 @@ configuration I have set-up this produces wonderfully smooth lines as each step
 is approximately 0.04mm.
 
 * [draw.py](draw.py) coordinates the everything
-* [render.py](render.py) contains the `Render()` class which generates the path
-  as a list of `Point()`s and has `width` and `height` data attributes which
-  don't necessarily correspond to the maximum values of `x` and `y` as an image
-  might not be centered or occupy the entire dimensions of the screen.
-* [point.py](point.py) defines a `Point()` class which has `x` and `y`
-  attributes that are integers (Bressenham's line algorithm only really makes
-  logical sense with integers)
+* `Render()` is defined in [render.py](render.py) and is class that `draw.py`
+  interacts with to get a list of `Point()`s as a path and and a `width` and
+  `height` all as data attributes.  `Render()` has the important method 
+  `.scale([factor])` where `factor` is a numeric data type and will be
+  used to scale up or down the path - you'd use this method if you want to 
+  scale an image to fit a screen of a given size.
+
+  Note also that the data attributes `x` and `y` don't necessarily correspond
+  with the maximum `x` or `y` in the `.path` attribute.  An image may have
+  white space outside of its drawn portion, this allows that white space to
+  exist.
+* `Point()` is defined in [point.py](point.py) and is an object with `x` and
+  `y` attributes that are integers (Bressenham's line algorithm only really
+  makes   logical sense with integers).
   * `__rmul__` is implemented but not `__mul__` so if `p` is an instance of
   `Point()`, you can say `2*p` but not `p*2`.
   * you can add `+`, subtract `-`, negate `-`, and compare `=` two `Point()`s,
-  but not multiply etc. since I don't know what that would mean.
+  but not multiply etc. since I don't know what that would mean - same goes for
+  `__lt__()`, `__le__()`, etc.
 * `Canvas()` is defined in [canvas.py](canvas.py) and is really just a height
   and width of the screen to set the maximum distance that the stylus can travel
   before it won't drive any further.
