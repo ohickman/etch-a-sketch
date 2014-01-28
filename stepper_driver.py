@@ -24,46 +24,50 @@ class Stepper(object):
     This object assumes that one full rotation is not very big.
     If I have to do an eighth of a rotation then I'll have to rewrite
     this object."""
-    def __init__(self, pins=[04,17,27,22], current_position = 0, limit=2000, wait=0.00125):
+    def __init__(self, pins=[04,17,27,22], current_position=0, limit=2000, delay=0.00125):
         self.pins = pins
         # self.pins = [04,17,27,22] # 2013-12-26 vertical motor
         # self.pins = [18,23,24,25] # 2013-12-26 horizontal motor
-        # self.pins = [04,17,23,27] # vertical motor
-        # self.pins = [18,22,24,25] # horizontal motor
         self.current_position = current_position
         self.limit = limit
-        self.wait_time = wait
-        self.forward_sequence = [[1,0,0,0],
-            [1,1,0,0],
-            [0,1,0,0],
-            [0,1,1,0],
-            [0,0,1,0],
-            [0,0,1,1],
-            [0,0,0,1],
-            [1,0,0,1]]
-        self.reverse_sequence = [[0,0,0,1],
-            [0,0,1,1],
-            [0,0,1,0],
-            [0,1,1,0],
-            [0,1,0,0],
-            [1,1,0,0],
-            [1,0,0,0],
-            [1,0,0,1]]
-        self.error_sequence = [[1,0,0,1]]
+        self.substep_delay = delay
+
+        self.forward_sequence = [
+                [True,False,False,False],
+                [True,True,False,False],
+                [False,True,False,False],
+                [False,True,True,False],
+                [False,False,True,False],
+                [False,False,True,True],
+                [False,False,False,True],
+                [True,False,False,True]]
+
+        self.reverse_sequence = [
+                [False,False,False,True],
+                [False,False,True,True],
+                [False,False,True,False],
+                [False,True,True,False],
+                [False,True,False,False],
+                [True,True,False,False],
+                [True,False,False,False],
+                [True,False,False,True]]
+
+        self.error_sequence = [
+                [True,False,False,True]]
+
         GPIO.setmode(GPIO.BCM) #BOARD)
         # Set pins as output
         for pin in pins:
             GPIO.setup(pin, GPIO.OUT, initial=GPIO.LOW)
-            pass
 
 
     def take_step(self, direction=1):
         if direction == 1:
-            sequence = self.forward_sequence
+            firing_sequence = self.forward_sequence
         elif direction == -1:
-            sequence = self.reverse_sequence
+            firing_sequence = self.reverse_sequence
         else:
-            sequence = self.error_sequence
+            firing_sequence = self.error_sequence
             direction = 0
 
         # Prevent sending signals to stepper if it is out-of-bounds, but
@@ -72,19 +76,12 @@ class Stepper(object):
         # partly off screen.
         if (self.current_position + direction >= self.limit or
                 self.current_position + direction <= 0):
-            sequence = self.error_sequence
+            firing_sequence = self.error_sequence
 
-        for step in range(0, len(sequence)):
-            #print ""#***** Step: %i *****" %(step)
-            for pin in range(0,4):
-                xpin = self.pins[pin]
-                if sequence[step][pin]!=0:
-                    #print ("#"),#print "High: %i" %(xpin)
-                    GPIO.output(xpin, GPIO.HIGH)
-                else:
-                    #print ("_"),#print "Low: %i" %(xpin)
-                    GPIO.output(xpin, GPIO.LOW)
-            time.sleep(self.wait_time)
+        for step in range(0, len(firing_sequence)):
+            for pin in range(0, len(firing_sequence[sub_step])):
+                GPIO.output(self.pins[pin], firing_sequence[sub_step][pin])
+                time.sleep(self.substep_delay)
         self.current_position += (direction)
 
     def __del__(self):
