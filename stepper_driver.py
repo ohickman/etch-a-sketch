@@ -78,7 +78,7 @@ class Stepper(object):
                 self.current_position + direction <= 0):
             firing_sequence = self.error_sequence
 
-        for step in range(0, len(firing_sequence)):
+        for sub_step in range(0, len(firing_sequence)):
             for pin in range(0, len(firing_sequence[sub_step])):
                 GPIO.output(self.pins[pin], firing_sequence[sub_step][pin])
                 time.sleep(self.substep_delay)
