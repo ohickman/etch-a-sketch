@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License along with
 this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-class EdgeDetect(PathInterface):
+class EdgeDetectDONTUSE(PathInterface):
     """ As of 2014-01-05 this path generator doesn't do anything.  Sorry."""
     from scipy import ndimage
     import numpy as np
@@ -30,8 +30,8 @@ class EdgeDetect(PathInterface):
         self.height = len(iamge[1])
         self.width = len(image)
         self.path = []
-        # what did I put in Megan's text?  Grab that stuff!
-        # now do all that fancy edge detection stuff here.
+       # what did I put in Megan's text?  Grab that stuff!
+       # now do all that fancy edge detection stuff here.
 
         image = image[...,2] # Grab only one chanel?
         image = ndimage.gaussian_filter(image, sigma=10) #sigma fn of img size
