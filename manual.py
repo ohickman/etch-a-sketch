@@ -29,10 +29,15 @@ def lt(dist):
 while True:
     command = raw_input ("?: ")
     if command:
-        direction = command[:1]
+        direction = command[:1].lower()
         distance = command[1:]
-        if int(distance):
+        
+        try:
             distance = int(distance)
+        except Exception:
+            raise SystemExit
+
+        if int(distance):
             if direction == "u":
                 up(distance)
             if direction == "d":
@@ -41,5 +46,7 @@ while True:
                 rt(distance)
             if direction == "l":
                 lt(distance)
+        else:
+            raise SystemExit
 
 
