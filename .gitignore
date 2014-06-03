@@ -1,1 +1,5 @@
+# compiled files
 *.py[cod]
+
+# .SVG image files from sim.py
+*.svg
