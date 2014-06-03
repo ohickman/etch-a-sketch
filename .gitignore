@@ -3,3 +3,6 @@
 
 # .SVG image files from sim.py
 *.svg
+
+# if files are open in an editor
+*.swp
