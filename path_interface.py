@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License along with
 this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-class PathInterface(object):
+class PathInterface( object ):
     """ interface for path generator strategies, this is part of the interface
     for the Render() class, and it is the whole interface for the strategy
     pattern classes.
@@ -95,7 +95,7 @@ class PathInterface(object):
         >>> a.path = [Point(0,0), Point(1,1), Point(2,2)]
         >>> len(a.path)
         3"""
-        return len(self._path)
+        return len(self.__path)
 
 
 if __name__ == "__main__":

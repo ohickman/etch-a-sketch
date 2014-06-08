@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License along with
 this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-class Render(PathInterface):
+class Render( PathInterface ):
     """The Render() class inherits height, width, and path getters and setters
     from PathInterface as well as the __len__ special method.
     It extends this by including a path_generator object (to do the image

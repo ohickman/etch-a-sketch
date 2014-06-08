@@ -5,6 +5,7 @@ from canvas import Canvas
 from stepper_driver import Stepper
 from render_strategy import *
 
+from raster_strategy import RasterPath # this is the one that uses "maxels"
 """
 Extensible image processing and Etch-a-sketch drawing program
 Copyright (C) 2014 Oliver Hickman
@@ -32,16 +33,24 @@ status("Initializing Canvas() object.")
 screen = Canvas() # use default values for the Etch-a-sketch
 
 status("Initializing Render() object.")
-image_to_draw = Render()
+image_to_draw = Render() # defaults to NullPath
 
 #status("Loading image.")
 #image_to_draw.load_image()
 
 status("Setting path generator strategy.")
 image_to_draw.set_path_generator(HelloWorld)
+image_to_draw.set_path_generator(RasterPath)
+
+
+status("Loading image.")
+image_to_draw.open_image()
 
 status("Generating path.")
 image_to_draw.generate_path()
+
+status("Closing image.")
+image_to_draw.close_image()
 
 status("Scaling image for Canvas.")
 v_factor = float(screen.height) / float(image_to_draw.height)
