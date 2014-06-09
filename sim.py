@@ -1,7 +1,8 @@
+import time
 from render import Render
 from canvas import Canvas
-from render_strategy import *
-
+#from render_strategy import *
+from raster_strategy import RasterPath
 """
 Extensible image processing and Etch-a-sketch drawing program
 Copyright (C) 2014 Oliver Hickman
@@ -19,13 +20,28 @@ You should have received a copy of the GNU General Public License along with
 this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-# screen = Canvas() # use default values for the Etch-a-sketch
+def status(message):
+    message = " " + message
+    print (time.clock()),
+    print message
 
+# screen = Canvas() # use default values for the Etch-a-sketch
+status("Initializing Render() object.")
 image_to_draw = Render()
 
-image_to_draw.set_path_generator(HelloWorld)
+status("Setting path generator strategy.")
+#image_to_draw.set_path_generator(HelloWorld)
+image_to_draw.set_path_generator(RasterPath)
 
+
+status("Loading image.")
+image_to_draw.open_image()
+
+status("Generating path.")
 image_to_draw.generate_path()
+
+# status("Closing image.")
+# image_to_draw.close_image()
 
 img_file = open("sim.svg", "wb")
 

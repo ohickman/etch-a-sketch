@@ -59,7 +59,7 @@ class RasterPath( PathInterface ):
         im.close()
 
 
-    def generate_path()
+    def generate_path():
         import ImageStat # Stat and mean functions for value of maxel
         
         for x in range(0, self.width/50):
@@ -71,7 +71,7 @@ class RasterPath( PathInterface ):
 
                 # value of maxel, normalized to the values of the
                 # pixels we have:
-                value = floor(stat.mean[0]/(255/maxels.len())))
+                value = floor(stat.mean[0]/(255/maxels.len()))
                 
                 # grab the pre-defined pixel
                 subpath = values[value]

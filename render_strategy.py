@@ -20,8 +20,8 @@ this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class EdgeDetectDONTUSE(PathInterface):
     """ As of 2014-01-05 this path generator doesn't do anything.  Sorry."""
-    from scipy import ndimage
-    import numpy as np
+    # from scipy import ndimage
+    # import numpy as np
     def __init__(self, image):
         # self._source = source 
         # img = plt.imread(self._source)

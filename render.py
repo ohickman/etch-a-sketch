@@ -41,15 +41,25 @@ class Render( PathInterface ):
         """ Strategy pattern! """
         self.path_generator = generator
 
+
+    def open_image(self, source="dolphin.jpg"):
+        """ This method is the PIL version of load_image below.  No promises
+        about what will be supported when, or what the differences will be.
+        """
+        from PIL import Image
+        im = Image.open(source)
+        self.width, self.height = im.size
+
+
     def load_image(self, source="dolphin.jpg"):
         """ This method only needs to be called if a path generator needs an
         image object passed to it.  If the generator doesn't need an image,
         then don't call it.  That feels like I'm not properly encapsulating
         things, but at some point someone needs to know what they are doing.
         """
-        from scipy import ndimage
-        import numpy as np
-        import matplotlib.pyplot as plt # plt.imshow(), plt.show()
+        # from scipy import ndimage
+        # import numpy as np
+        # import matplotlib.pyplot as plt # plt.imshow(), plt.show()
 
         self._source = source
         image = plt.imread(self._source) # open image with matplotlip

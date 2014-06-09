@@ -39,7 +39,7 @@ image_to_draw = Render() # defaults to NullPath
 #image_to_draw.load_image()
 
 status("Setting path generator strategy.")
-image_to_draw.set_path_generator(HelloWorld)
+#image_to_draw.set_path_generator(HelloWorld)
 image_to_draw.set_path_generator(RasterPath)
 
 
